@@ -50,10 +50,44 @@ class Localhost_Check extends Abstract_File_Check {
 		if ( $file ) {
 			$this->add_result_error_for_file(
 				$result,
-				__( 'Do not use Localhost/127.0.0.1 in your code.', 'plugin-check' ),
+				sprintf(
+					/* translators: %s: Localhost/127.0.0.1 */
+					__( 'Do not use %s in your code.', 'plugin-check' ),
+					'Localhost/127.0.0.1'
+				),
 				'localhost_code_detected',
 				$file
 			);
 		}
+	}
+
+	/**
+	 * Gets the description for the check.
+	 *
+	 * Every check must have a short description explaining what the check does.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return string Description.
+	 */
+	public function get_description(): string {
+		return sprintf(
+			/* translators: %s: Localhost/127.0.0.1 */
+			__( 'Detects the usage of %s in the plugin.', 'plugin-check' ),
+			'Localhost/127.0.0.1'
+		);
+	}
+
+	/**
+	 * Gets the documentation URL for the check.
+	 *
+	 * Every check must have a URL with further information about the check.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return string The documentation URL.
+	 */
+	public function get_documentation_url(): string {
+		return __( 'https://make.wordpress.org/plugins/handbook/performing-reviews/review-checklist/', 'plugin-check' );
 	}
 }
