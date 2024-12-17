@@ -156,6 +156,16 @@
 		<severity>7</severity>
 	</rule>
 
+	<!-- No ByteOrderMark allowed - important to prevent issues with content being sent before headers. -->
+	<rule ref="Generic.Files.ByteOrderMark">
+		<severity>7</severity>
+	</rule>
+
+	<!-- Call-time pass-by-reference has been deprecated since PHP 5.3 and should not be used. -->
+	<rule ref="Generic.Functions.CallTimePassByReference">
+		<severity>7</severity>
+	</rule>
+
 	<!-- Check for missing required function parameters. -->
 	<rule ref="PluginCheck.CodeAnalysis.RequiredFunctionParameters">
 		<severity>7</severity>
