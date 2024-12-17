@@ -33,3 +33,5 @@ EOD;
 
 parse_str( 'first=value&arr[]=foo+bar&arr[]=baz' );
 
+$encoded_value = json_encode( array( 'key' => 'value' ) );
+
