@@ -23,6 +23,7 @@ class Plugin_Review_PHPCS_Check_Tests extends WP_UnitTestCase {
 
 		$this->assertNotEmpty( $errors );
 		$this->assertArrayHasKey( 'load.php', $errors );
+		$this->assertArrayHasKey( 'file-with-bom.php', $errors );
 		$this->assertNotEmpty( $warnings );
 		$this->assertArrayHasKey( 'load.php', $warnings );
 
@@ -43,6 +44,12 @@ class Plugin_Review_PHPCS_Check_Tests extends WP_UnitTestCase {
 
 		// Check for PluginCheck.CodeAnalysis.RequiredFunctionParameters.parse_str_resultMissing error on Line no 34 and column no at 1.
 		$this->assertSame( 'PluginCheck.CodeAnalysis.RequiredFunctionParameters.parse_str_resultMissing', $errors['load.php'][34][1][0]['code'] );
+
+		// Check for Generic.Functions.CallTimePassByReference.NotAllowed error on Line no 38 and column no 16.
+		$this->assertSame( 'Generic.Functions.CallTimePassByReference.NotAllowed', $errors['load.php'][38][16][0]['code'] );
+
+		// Check for Generic.Files.ByteOrderMark.Found error on Line no 1 and column no 1.
+		$this->assertSame( 'Generic.Files.ByteOrderMark.Found', $errors['file-with-bom.php'][1][1][0]['code'] );
 
 		// There should not be WordPress.WP.AlternativeFunctions.json_encode_json_encode error on Line no 36 and column no at 18.
 		$this->assertCount( 0, wp_list_filter( $errors['load.php'][36][18], array( 'code' => 'WordPress.WP.AlternativeFunctions.json_encode_json_encode' ) ) );
