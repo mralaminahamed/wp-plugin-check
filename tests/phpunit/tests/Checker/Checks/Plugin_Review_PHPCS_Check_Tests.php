@@ -44,6 +44,9 @@ class Plugin_Review_PHPCS_Check_Tests extends WP_UnitTestCase {
 		// Check for PluginCheck.CodeAnalysis.RequiredFunctionParameters.parse_str_resultMissing error on Line no 34 and column no at 1.
 		$this->assertSame( 'PluginCheck.CodeAnalysis.RequiredFunctionParameters.parse_str_resultMissing', $errors['load.php'][34][1][0]['code'] );
 
+		// There should not be WordPress.WP.AlternativeFunctions.json_encode_json_encode error on Line no 36 and column no at 18.
+		$this->assertCount( 0, wp_list_filter( $errors['load.php'][36][18], array( 'code' => 'WordPress.WP.AlternativeFunctions.json_encode_json_encode' ) ) );
+
 		// Check for WordPress.Security.ValidatedSanitizedInput warnings on Line no 15 and column no at 27.
 		$this->assertCount( 1, wp_list_filter( $warnings['load.php'][15][27], array( 'code' => 'WordPress.Security.ValidatedSanitizedInput.InputNotValidated' ) ) );
 		$this->assertCount( 1, wp_list_filter( $warnings['load.php'][15][27], array( 'code' => 'WordPress.Security.ValidatedSanitizedInput.MissingUnslash' ) ) );
