@@ -235,7 +235,7 @@ class File_Type_Check extends Abstract_File_Check {
 	protected function look_for_application_files( Check_Result $result, array $files ) {
 		$application_files = self::filter_files_by_extensions(
 			$files,
-			array( 'a', 'bin', 'bpk', 'deploy', 'dist', 'distz', 'dmg', 'dms', 'DS_Store', 'dump', 'elc', 'exe', 'iso', 'lha', 'lrf', 'lzh', 'o', 'obj', 'phar', 'pkg', 'sh', 'so' )
+			array( 'a', 'bin', 'bpk', 'deploy', 'dist', 'distz', 'dmg', 'dms', 'dump', 'elc', 'exe', 'iso', 'lha', 'lrf', 'lzh', 'o', 'obj', 'phar', 'pkg', 'sh', 'so' )
 		);
 		if ( $application_files ) {
 			foreach ( $application_files as $file ) {
