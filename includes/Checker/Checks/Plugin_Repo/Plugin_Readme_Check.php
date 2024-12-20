@@ -248,14 +248,14 @@ class Plugin_Readme_Check extends Abstract_File_Check {
 							$result,
 							sprintf(
 								/* translators: %s: readme header field */
-								__( '<strong>Missing "%s".</strong><br>Your readme has to have headers as well as a proper description and documentation as to how it works and how one can use it.', 'plugin-check' ),
+								__( 'The "%s" header is missing in the readme file.', 'plugin-check' ),
 								$field['label']
 							),
-							'missing_readme_header',
+							'missing_readme_header_' . $field_key,
 							$readme_file,
 							0,
 							0,
-							'https://developer.wordpress.org/plugins/wordpress-org/common-issues/#incomplete-readme'
+							'https://developer.wordpress.org/plugins/wordpress-org/how-your-readme-txt-works/#readme-header-information'
 						);
 					}
 				}
