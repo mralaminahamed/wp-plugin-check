@@ -128,6 +128,21 @@ class I18n_Usage_Check extends Abstract_PHP_CodeSniffer_Check {
 				break;
 		}
 
+		// Update severity.
+		switch ( $code ) {
+			case 'WordPress.WP.I18n.InterpolatedVariableDomain':
+			case 'WordPress.WP.I18n.MissingArgText':
+			case 'WordPress.WP.I18n.NoEmptyStrings':
+			case 'WordPress.WP.I18n.NonSingularStringLiteralContext':
+			case 'WordPress.WP.I18n.NonSingularStringLiteralDomain':
+			case 'WordPress.WP.I18n.TooManyFunctionArgs':
+				$severity = 7;
+				break;
+
+			default:
+				break;
+		}
+
 		parent::add_result_message_for_file( $result, $error, $message, $code, $file, $line, $column, $docs, $severity );
 	}
 }
