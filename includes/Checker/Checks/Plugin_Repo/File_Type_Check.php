@@ -76,6 +76,8 @@ class File_Type_Check extends Abstract_File_Check {
 	 *
 	 * @throws Exception Thrown when the check fails with a critical error (unrelated to any errors detected as part of
 	 *                   the check).
+	 *
+	 * @SuppressWarnings(PHPMD.NPathComplexity)
 	 */
 	protected function check_files( Check_Result $result, array $files ) {
 		if ( $this->flags & self::TYPE_COMPRESSED ) {
@@ -400,7 +402,7 @@ class File_Type_Check extends Abstract_File_Check {
 				$result,
 				sprintf(
 					/* translators: 1: directory, 2: filename */
-					esc_html__( 'The "%1$s" directory exists, but "%2$s" is missing.', 'plugin-check' ),
+					esc_html__( 'The "%1$s" directory using composer exists, but "%2$s" file is missing.', 'plugin-check' ),
 					'/vendor',
 					'composer.json'
 				),
