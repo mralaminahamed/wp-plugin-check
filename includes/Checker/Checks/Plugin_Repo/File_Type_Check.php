@@ -31,7 +31,8 @@ class File_Type_Check extends Abstract_File_Check {
 	const TYPE_APPLICATION  = 16;
 	const TYPE_BADLY_NAMED  = 32;
 	const TYPE_LIBRARY_CORE = 64;
-	const TYPE_ALL          = 127; // Same as all of the above with bitwise OR.
+	const TYPE_COMPOSER     = 128;
+	const TYPE_ALL          = 255; // Same as all of the above with bitwise OR.
 
 	/**
 	 * Bitwise flags to control check behavior.
@@ -98,6 +99,9 @@ class File_Type_Check extends Abstract_File_Check {
 		}
 		if ( $this->flags & self::TYPE_LIBRARY_CORE ) {
 			$this->look_for_library_core_files( $result, $files );
+		}
+		if ( $this->flags & self::TYPE_COMPOSER ) {
+			$this->look_for_composer_files( $result, $files );
 		}
 	}
 
@@ -369,6 +373,44 @@ class File_Type_Check extends Abstract_File_Check {
 					8
 				);
 			}
+		}
+	}
+
+	/**
+	 * Looks for composer files.
+	 *
+	 * @since 1.4.0
+	 *
+	 * @param Check_Result $result The check result to amend, including the plugin context to check.
+	 * @param array        $files  List of absolute file paths.
+	 */
+	protected function look_for_composer_files( Check_Result $result, array $files ) {
+		if ( $result->plugin()->is_single_file_plugin() ) {
+			return;
+		}
+
+		$plugin_path = $result->plugin()->path();
+
+		if (
+			is_dir( $plugin_path . 'vendor' ) &&
+			file_exists( $plugin_path . 'vendor/autoload.php' ) &&
+			! file_exists( $plugin_path . 'composer.json' )
+		) {
+			$this->add_result_warning_for_file(
+				$result,
+				sprintf(
+					/* translators: 1: directory, 2: filename */
+					esc_html__( 'The "%1$s" directory exists, but "%2$s" is missing.', 'plugin-check' ),
+					'/vendor',
+					'composer.json'
+				),
+				'missing_composer_json_file',
+				'composer.json',
+				0,
+				0,
+				'https://developer.wordpress.org/plugins/wordpress-org/common-issues/#included-unneeded-folders',
+				6
+			);
 		}
 	}
 
