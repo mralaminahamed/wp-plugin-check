@@ -28,7 +28,7 @@ build
 ############
 
 node_modules/
-vendor/
+/vendor/
 
 ############
 ## OSes
